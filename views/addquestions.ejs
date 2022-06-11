@@ -1,0 +1,20 @@
+<%- include('partials/header'); -%>
+<a href="/community" class="float-right btn-normal">Back To Question</a>
+ <h2 class="color1"> Add Question </h2>
+            </hr>
+          
+        <% if(formError) { %>
+            <h5 class="error"> <%= formError %> </h5>
+        <% } %>
+        <div class="content">
+        <form action="/addquestions/?user_id=<%= userid %>" method="POST">
+           <h3>Title : </h2>
+             <input type="text" placeholder="Title" name="title" required  />
+            <h3>Description : </h2>
+             <textarea name="text" row='3' /></textarea>
+            <button>Add Question</button>
+        </form>
+        </div>
+
+</body>
+</html>

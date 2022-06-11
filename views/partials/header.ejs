@@ -1,0 +1,23 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Matrix Master Community</title>
+  <link rel="icon" href="/logo.png.png" type="image/png" sizes="16x16">
+  <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/font-awesome.min.css">
+</head>
+<body>
+  <nav>
+    <h1><a href="/"> <img src="/logo.png" class="logoimg" alt=""> Matrix Master</a></h1>
+    <ul>
+      <% if (user) { %>
+        <li>Welcome, <%= user.username %></li>
+        <li><a href="/logout">Log out</a></li>
+      <% } else { %>
+        <li><a href="/login">Log in</a></li>
+        <li><a href="/signup" class="btn">Sign up</a></li>
+      <% } %>
+    </ul>
+  </nav>
+  

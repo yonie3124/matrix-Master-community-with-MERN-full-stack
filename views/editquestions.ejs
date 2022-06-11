@@ -1,0 +1,20 @@
+<%- include('partials/header'); -%>
+<a href="/communitydetails/?question_id=<%= question._id %>" class="float-right btn-normal">Back To Question</a>
+ <h2 class="color1"> Edit Question </h2>  
+            </hr>
+          
+        <% if(formError) { %>
+            <h5 class="error"> <%= formError %> </h5>
+        <% } %>
+        <div class="content">
+        <form action="/confirm_edit_q/?question_id=<%= question._id %>" method="POST">
+           <h3>Title : </h2>
+             <input type="text" placeholder="Title" name="title" value="<%= question.title %>" required  />
+            <h3>Description : </h2>
+             <textarea name="text" row='3' /><%= question.text %></textarea>
+            <button class="bcolor2">Edit Question</button>
+        </form>
+        </div>
+
+</body>
+</html>

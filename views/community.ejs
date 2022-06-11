@@ -1,0 +1,61 @@
+<%- include('partials/header'); -%>
+<div class="communityheader">
+ <h2>Wellcom To Matrix Master Community</h2>
+ <p>
+ There are 
+ <%= counts -1 %>
+ questions
+ </p>
+  
+       <div class="search">
+      <div class="continer maxw">
+      <div class="continerright">
+      <ul>
+      <li><a href="/community" class="titlelink" >Refresh  <i class="fa fa-refresh"></i></a></li>
+      <li><a href="/filter-q" class="titlelink" >filter <i class="fa fa-align-center"></i></a></li>
+      </ul>
+      </div>
+      </div>
+    <div class="continer">
+                    <div class="col2">
+                   <a href="/addquestions" class="btn btn-default">Add a questions <i class="fa fa-code"></i></a>
+                      </div>
+                <div class="col4">
+                  <form action="/searchquestions" method="POST">
+                       <input type="text" placeholder="Search" name="Searchtxt"  />
+                       <button><i class="fa fa-search "></i></button>
+                 </form>
+                 </div>
+    </div>
+   </div>
+ </div>
+   
+  <% if(allquestions.length > 0) { %> 
+  <ul class="questionsbar">
+               <%  allquestions.forEach( questions => { %> 
+                <li class="questiontext">
+                <div class="continer">
+                    <div class="col1">
+                      <p class="itemtxt"> Comments <i class="fa fa-comment-o"></i></p>
+                      <p class="itemtxt color2"> <%= questions.comments.length %></p>
+                      <p class="itemtxt">  Views <i class="fa fa-thumbs-o-up"></i></p>
+                      <p class="itemtxt color2"><%= questions.rate %></p>
+                    </div>
+                    <div class="col3">
+                         <a href="/communitydetails/?question_id=<%= questions._id %>" class="titlelink" ><h4><%= questions.title %>  </h4></a>
+                         <p><%= questions.text %></p>
+                         <div class="qdetials">
+                         <p><i class="fa fa-user-circle"></i>  <%= questions.user.username %> <span> Asked </span>
+                         <%= new Intl.DateTimeFormat('en-GB', { dateStyle: 'short' ,
+                         timeStyle: 'short' }).format(new Date(questions.created_at)) %></p>
+                         </div>
+                 </div>
+              </div>
+                </li>
+                <% }) %>
+  </ul>
+            <% } else { %>
+                <h3 class="err"> No questions found </h3>
+            <% } %>
+
+<%- include('partials/footer'); -%>

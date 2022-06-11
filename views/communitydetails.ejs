@@ -1,0 +1,101 @@
+<%- include('partials/header'); -%>
+<div class="continer">
+<a href="/community" class="mins float-right btn-normal">Back To Community</a>
+</div>
+   <div class="continer">
+                    <div class="col1">
+                       <p class="itemtxt"> Comments <i class="fa fa-comment-o"></i></p>
+                       <p class="itemtxt color1"><%= questions.comments.length %></p>
+                       <p class="itemtxt">  Views <i class="fa fa-thumbs-o-up"></i></p>
+                       <p class="itemtxt color1"><%= questions.rate %></p>
+                      
+                    </div>
+                    <div class="col3">
+                       <div class="continer">
+                          <div class="col4">
+                               <h3><%= questions.title %>  </h3>
+                               <p><%= questions.text %></p>
+                          </div>
+                          <div class="col2">
+                                <p><i class="fa fa-user-circle"></i>  <%= questions.user.username %> <span class="color1"> Asked </span> 
+                                <%= new Intl.DateTimeFormat('en-GB', { dateStyle: 'short' ,
+                                timeStyle: 'short' }).format(new Date(questions.created_at)) %></p>
+                                 <% if(questions.user._id.toString()===user._id.toString()) { %> 
+                                 <div class="continerfull">
+                                 
+                        <a href="/edit-question/?questions_id=<%= questions._id %>" class="center btn-normal" alt="">Edit 
+                        <i class="fa fa-pencil-square-o"></i></a>
+                        </div>
+                         <div class="continerfull">
+              <form onsubmit="return confirm('Are you sure?');" class="rightform" action="/delete-question?q_id=<%= questions._id %>" method="POST">
+                <button class="center btn-normal bcolor1">Delete <i class="fa fa-trash-o"></i></button>
+               </form>
+
+               </div>
+               <% } %>
+                          </div>
+                       </div>
+                    </div>
+   </div>
+   
+      <form action="/add-comment/?questions_id=<%= questions._id %>&user_id=<%= user._id %>" method="POST">
+      <div class="continer2">
+             <div class="col4">
+                <h3>Add Comment : </h2>
+                <input type="text" placeholder="Write a comment" name="text" required  />
+             </div>
+             <div class="col2">
+                 <button class="btn-advance">Add Comment <i class="fa fa-comments"></i></button>
+             </div>
+       </div>
+       </form>
+   
+   <% if(questions.comments.length > 0) { %> 
+  <ul class="questionsbar">
+               <%  questions.comments.forEach( comment => { %> 
+                <li class="questiontext">
+                <div class="continerfull">
+                     <p><%= comment.text %></p>
+                   </div>
+                    <div class="continer">
+                            <div class="col2">
+                            <% if(user._id.toString()===comment.user_id.toString()) { %> 
+                              <form onsubmit="return confirm('Are you sure?');" class="rightform" action="/delete-comment?comment_id=<%= comment._id %>&question_id=<%= questions._id %>" method="POST">
+                                  <button class="center btn-normal bcolor1">Delete <i class="fa fa-trash-o"></i></button>
+                             <% } %>
+                             </form>
+                              <div class="star-wrapper">
+                              
+                           <% for (var i =1; i <=5;  i++ ) { %> 
+                            <% if(comment.upvote >= i+1 ) { %> 
+                                <a href="/rate-comment?rate=<%= i %>&question_id=<%= questions._id %>&comment_id=<%= comment._id %>" class="fa fa-star basic s1"'></a>
+                            <% } else if(comment.upvote === 0 ){ %>
+                             <a href="/rate-comment?rate=<%= i %>&question_id=<%= questions._id %>&comment_id=<%= comment._id %>" class="fa fa-star basic s1 "'></a>
+                             <% } else { %>
+                             <a href="/rate-comment?rate=<%= i %>&question_id=<%= questions._id %>&comment_id=<%= comment._id %>" class="fa fa-star check s1 "'></a>
+                             <% } %>
+                               <% } %>
+                             <p>Total Rating</p>
+                              </div>
+                            
+                           </div>
+                            <div class="col4">
+                             <div class="qdetials">
+                             <p><i class="fa fa-user-circle"></i>  <%= comment.user_name %> <span> Comment at </span>
+                             <%= new Intl.DateTimeFormat('en-GB', { dateStyle: 'short' ,
+                             timeStyle: 'short' }).format(new Date(comment.created_at)) %></p>
+                           </div>
+                           </div>
+                   
+                   </div>
+                    
+                   
+              </div>
+                </li>
+                <% }) %>
+  </ul>
+            <% } else { %>
+                <h3 class="txtdanger"> No comments for this question yet </h3>
+            <% } %>
+</body>
+</html>

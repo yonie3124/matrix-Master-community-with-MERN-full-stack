@@ -1,0 +1,20 @@
+<%- include('partials/header'); -%>
+
+<header>
+  <div class="smoothie">
+    <img src="/logo.png" alt="">
+  </div>
+  <div class="headings">
+    <h2>Matrix Master</h2>
+    <% if (user) { %>
+    <h3>Wellcom To <span>Our</span> Awsome Community</h3>
+    <a href="/community" class="btn">Add Your Questions <i class="fa fa-chevron-right" ></i></a>
+        <p class="topmore">You can now add many questions and add comments and rate other comments.</p>
+      <% } else { %>
+      <h3>Join <span>Our</span> Awsome Community</h3>
+       <a href="/community" class="btn">Join And Add Your Questions</a>
+      <% } %>
+  </div>
+</header>
+
+<%- include('partials/footer'); -%>
